@@ -1,0 +1,12 @@
+paths:
+  cache: tmp/cache
+  config: app/config
+  database: tmp/database
+  web: public
+  themebase: public/theme
+  files: public/uploads
+  view: public/assets/admin
+
+urls:
+  app: /
+  view: assets/admin

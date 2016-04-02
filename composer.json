@@ -1,0 +1,15 @@
+{
+    "require": {
+        "bolt/bolt": "^3.0"
+    },
+    "minimum-stability": "beta",
+    "prefer-stable": true,
+    "scripts": {
+        "post-install-cmd": [
+            "Bolt\\Composer\\ScriptHandler::installAssets"
+        ],
+        "post-update-cmd": [
+            "Bolt\\Composer\\ScriptHandler::installAssets"
+        ]
+    }
+}
