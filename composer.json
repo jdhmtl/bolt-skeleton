@@ -4,12 +4,17 @@
     },
     "minimum-stability": "beta",
     "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Wrench\\": "app/wrench/src/"
+        }
+    },
     "scripts": {
         "post-install-cmd": [
-            "Bolt\\Composer\\ScriptHandler::installAssets"
+            "Wrench\\Installer::installAssets"
         ],
         "post-update-cmd": [
-            "Bolt\\Composer\\ScriptHandler::installAssets"
+            "Wrench\\Installer::installAssets"
         ]
     }
 }
