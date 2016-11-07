@@ -2,6 +2,7 @@
 
 use Bolt\Application;
 use Bolt\Configuration\Composer as Config;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 
 return call_user_func(
@@ -33,6 +34,11 @@ return call_user_func(
         $app = new Application(['resources' => $config]);
 
         $app->initialize();
+
+        $fs = new Filesystem;
+        $source = $app['paths']['apppath'] . '/..' . $app['paths']['theme'];
+        $target = $app['paths']['themepath'];
+        $fs->mirror($source, $target);
 
         return $app;
     }
