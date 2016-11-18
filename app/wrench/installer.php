@@ -36,9 +36,35 @@ return call_user_func(
         $app->initialize();
 
         $fs = new Filesystem;
+
+        // Copy base theme
         $source = $app['paths']['apppath'] . '/..' . $app['paths']['theme'];
         $target = $app['paths']['themepath'];
         $fs->mirror($source, $target);
+
+        // Create missing directories and set correct permissions
+        $db_path = $app['paths']['databasepath'];
+
+        if (!$fs->exists($db_path)) {
+            $fs->mkdir($db_path);
+            $fs->chmod($db_path, 0777);
+        }
+
+        // Fix permissions on cache directory
+        $cache_path = $app['paths']['cachepath'];
+        $fs->chmod($cache_path, 0777);
+
+        try {
+            $fs->remove($cache_path . '/.version');
+            $fs->remove($cache_path . '/development');
+        } catch (\Exception $e) {
+            /**
+             * Initially deleting .version and /development so they will be
+             * created and owned by web server. Once that's done they cannot
+             * be deleted, but also don't need to be. An exception will be
+             * thrown but we don't really need to care.
+             */
+        }
 
         return $app;
     }
